@@ -33,7 +33,7 @@ export default async function Talentos({ searchParams: sp }: { searchParams: SP 
       <div className="bg-magenta text-papel bg-letreiro">
         <div className="wrap relative grid gap-5 py-9">
           <span className="tarja justify-self-start">Banco de Talentos Nacional</span>
-          <h1 className="font-display uppercase text-[clamp(40px,8vw,84px)] leading-[1.08] text-balance">Contrata quem<br />é da comunidade.</h1>
+          <h1 className="font-display uppercase text-[clamp(32px,5.5vw,58px)] leading-[1.18] text-balance">Contrata quem<br />é da comunidade.</h1>
           <Suspense><Filtros categorias={cats || []} cidades={cids || []} /></Suspense>
         </div>
       </div>
@@ -48,7 +48,7 @@ export default async function Talentos({ searchParams: sp }: { searchParams: SP 
               <li key={p.slug}>
                 <Link href={`/talentos/${p.slug}`} className={`grid gap-1.5 h-full content-start border-2 border-roxo p-4 bg-white transition hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-blocom ${p.destaque ? 'outline outline-4 outline-amarelo' : ''}`}>
                   <span className="text-xs font-semibold uppercase tracking-[0.08em] text-magenta">{p.cidade || 'Cidade a confirmar'} · {p.uf || '—'}{p.destaque && ' · DESTAQUE'}</span>
-                  <h2 className="font-display uppercase text-xl leading-[1.15] break-words">{p.nome}</h2>
+                  <h2 className="font-display uppercase text-xl leading-[1.25] break-words">{p.nome}</h2>
                   <p className="text-sm break-words">{p.profissao}</p>
                   <span className="flex flex-wrap gap-1">{(p.categoria_ids as number[]).slice(0, 3).map((id) => <span key={id} className="bg-verde text-[11px] font-semibold px-1.5">{nomeCat.get(id)}</span>)}</span>
                 </Link>

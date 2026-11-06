@@ -16,10 +16,10 @@ export default function OColetivo() {
       <div className="wrap grid gap-8 py-10 max-w-5xl">
         <Image src="/logo-h-original.webp" alt="Coletivo LESBILAB" width={700} height={294} priority className="w-64 md:w-80 h-auto" />
         <span className="tarja justify-self-start">O Coletivo LESBILAB</span>
-        <h1 className="font-display uppercase text-[clamp(44px,9vw,96px)] leading-[1.08] text-balance">Ocupar espaços, criar conexões e fortalecer umas às outras.</h1>
+        <h1 className="font-display uppercase text-[clamp(34px,6vw,66px)] leading-[1.18] text-balance">Ocupar espaços, criar conexões e fortalecer umas às outras.</h1>
 
         <section className="grid gap-3 max-w-prose text-[17px]">
-          <h2 className="font-display uppercase text-4xl">O que é o LESBILAB?</h2>
+          <h2 className="font-display uppercase text-3xl md:text-4xl leading-[1.2]">O que é o LESBILAB?</h2>
           <p>O LESBILAB é um coletivo sáfico criado para conectar pessoas, construir oportunidades e fortalecer a presença da nossa comunidade nos mais diferentes espaços.</p>
           <p>Acreditamos na potência de estarmos juntas, de compartilhar conhecimentos, criar redes de apoio e abrir caminhos para que mais mulheres e pessoas sáficas ocupem lugares que também são nossos.</p>
           <p>Mais do que promover encontros, queremos construir uma rede onde talentos sejam reconhecidos, ideias ganhem espaço, oportunidades circulem e ninguém precise fazer tudo sozinha.</p>
@@ -28,7 +28,7 @@ export default function OColetivo() {
         <div className="grid gap-3 md:grid-cols-2">
           {EIXOS.map((e) => (
             <section key={e.t} className={`${e.c} border-2 border-roxo p-5 grid gap-2 content-start`}>
-              <h3 className="font-display uppercase text-2xl leading-[1.15]">{e.t}</h3>
+              <h3 className="font-display uppercase text-2xl leading-[1.25]">{e.t}</h3>
               {e.p.map((t) => <p key={t}>{t}</p>)}
               {e.link && <Link href="/talentos" className="btn justify-self-start mt-2 !bg-amarelo !text-roxo !shadow-none">Ver o Banco de Talentos</Link>}
             </section>
@@ -36,19 +36,19 @@ export default function OColetivo() {
         </div>
 
         <section className="grid gap-3 max-w-prose text-[17px]">
-          <h2 className="font-display uppercase text-4xl">Ocupar espaços, abrir caminhos</h2>
+          <h2 className="font-display uppercase text-3xl md:text-4xl leading-[1.2]">Ocupar espaços, abrir caminhos</h2>
           <p>Acreditamos que não basta conquistar espaços individualmente. Queremos que outras também possam chegar.</p>
           <p>Fortalecer umas às outras significa indicar, contratar, divulgar, ensinar, aprender, apoiar projetos e reconhecer o trabalho de quem faz parte da nossa comunidade.</p>
           <p>Quando uma de nós ocupa um espaço, queremos que outras encontrem caminhos para ocupar também.</p>
           <p>O LESBILAB é sobre criar possibilidades juntas. Sobre transformar encontros em conexões e conexões em oportunidades.</p>
         </section>
 
-        <p className="bg-roxo p-5 font-display uppercase text-[clamp(28px,5vw,46px)] leading-[1.1] grid">
+        <p className="bg-roxo p-5 font-display uppercase text-[clamp(24px,4vw,38px)] leading-[1.22] grid">
           <span className="text-magenta">Porque juntas</span><span className="text-amarelo">podemos chegar</span><span className="text-verde">mais longe.</span>
         </p>
 
         <section className="bg-magenta text-papel p-6 grid gap-3">
-          <h2 className="font-display uppercase text-4xl">Faça parte dessa rede</h2>
+          <h2 className="font-display uppercase text-3xl md:text-4xl leading-[1.2]">Faça parte dessa rede</h2>
           <p className="max-w-prose text-[17px]">Você é uma profissional sáfica e quer fazer parte do nosso Banco de Talentos? Cadastre suas informações pelo nosso formulário e ajude a fortalecer essa rede.</p>
           <a href={FORMS} target="_blank" rel="noopener noreferrer" className="btn justify-self-start !bg-amarelo !text-roxo">Quero fazer parte do Banco de Talentos</a>
         </section>

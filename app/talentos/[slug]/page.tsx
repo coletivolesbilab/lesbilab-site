@@ -26,7 +26,7 @@ export default async function Perfil({ params }: { params: { slug: string } }) {
       <Link href="/talentos" className="text-xs font-semibold uppercase tracking-[0.06em]">‹ voltar ao Banco de Talentos</Link>
       <header className="bg-roxo text-papel p-6 grid gap-2">
         <span className="text-xs font-semibold uppercase tracking-[0.08em] text-verde">{p.cidade || 'Cidade a confirmar'} · {p.estado || '—'}</span>
-        <h1 className="font-display uppercase text-[clamp(36px,7vw,60px)] leading-[1.1] text-amarelo break-words">{p.nome}</h1>
+        <h1 className="font-display uppercase text-[clamp(30px,5vw,46px)] leading-[1.18] text-amarelo break-words">{p.nome}</h1>
         <p className="text-lg">{p.profissao}</p>
         <div className="flex flex-wrap gap-1">
           {cats?.map((c) => <span key={c.id} className="bg-verde text-roxo text-xs font-semibold px-2">{c.nome}</span>)}

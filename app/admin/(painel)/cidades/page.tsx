@@ -10,7 +10,7 @@ export default async function Cidades({ searchParams }: { searchParams: { uf?: s
   const conta = (id: number) => (uso || []).filter((u) => u.cidade_id === id).length;
   return (
     <div className="grid gap-4 max-w-3xl">
-      <h1 className="font-display uppercase text-4xl">Cidades</h1>
+      <h1 className="font-display uppercase text-3xl leading-[1.2]">Cidades</h1>
       <p className="text-sm">Os 27 estados são fixos. Cidades novas entram sozinhas no cadastro e na importação. Aqui dá para corrigir nomes e juntar cidades repetidas (ex.: “Sao Paulo” com “São Paulo”).</p>
       <form className="flex gap-2"><select className="campo max-w-xs" name="uf" defaultValue={searchParams.uf}><option value="">Todos os estados</option>{Object.entries(UFS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select><button className="btn !text-base !py-2">Filtrar</button></form>
       <form action={salvarCidade} className="flex flex-wrap gap-2"><input className="campo max-w-xs" name="nome" placeholder="Nova cidade" required /><select className="campo max-w-[90px]" name="uf" required>{Object.keys(UFS).map((u) => <option key={u}>{u}</option>)}</select><button className="btn !text-base !py-2">Adicionar</button></form>

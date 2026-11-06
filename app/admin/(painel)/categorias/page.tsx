@@ -7,7 +7,7 @@ export default async function Categorias() {
   const conta = (id: number) => (uso || []).filter((u) => u.categoria_id === id).length;
   return (
     <div className="grid gap-4 max-w-2xl">
-      <h1 className="font-display uppercase text-4xl">Categorias</h1>
+      <h1 className="font-display uppercase text-3xl leading-[1.2]">Categorias</h1>
       <form action={salvarCategoria} className="flex gap-2"><input className="campo" name="nome" placeholder="Nova categoria" required /><button className="btn !text-base !py-2">Adicionar</button></form>
       <ul className="grid gap-2">
         {data?.map((c) => (

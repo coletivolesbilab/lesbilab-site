@@ -11,5 +11,5 @@ export default async function Editar({ params }: { params: { id: string } }) {
   ]);
   if (!p) notFound();
   const perfil = { ...p, cidade: p.cidades?.nome || '', categorias: (p.profissional_categorias || []).map((c: { categoria_id: number }) => c.categoria_id) };
-  return <div className="grid gap-4"><h1 className="font-display uppercase text-4xl">Editar: {p.nome}</h1><Form p={perfil} categorias={cats || []} cidades={cids || []} /></div>;
+  return <div className="grid gap-4"><h1 className="font-display uppercase text-3xl leading-[1.2]">Editar: {p.nome}</h1><Form p={perfil} categorias={cats || []} cidades={cids || []} /></div>;
 }
