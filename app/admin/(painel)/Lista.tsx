@@ -24,7 +24,7 @@ export function Lista({ perfis }: { perfis: P[] }) {
       </div>
       <div className="overflow-x-auto border-2 border-roxo bg-white">
         <table className="w-full min-w-[820px] text-sm">
-          <thead className="bg-roxo text-papel font-pixel text-[10px] text-left">
+          <thead className="bg-roxo text-papel text-xs font-semibold uppercase tracking-[0.06em] text-left">
             <tr><th className="p-2"><input type="checkbox" aria-label="Selecionar todas" checked={tudo} onChange={() => setSel(tudo ? [] : perfis.map((p) => p.id))} /></th><th className="p-2">NOME</th><th className="p-2">PROFISSÃO</th><th className="p-2">LOCAL</th><th className="p-2">STATUS</th><th className="p-2"></th></tr>
           </thead>
           <tbody>

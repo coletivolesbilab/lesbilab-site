@@ -14,7 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Readex+Pro:wght@400;600&family=Silkscreen&display=swap" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Readex+Pro:wght@400;600&display=swap" />
       </head>
       <body className="min-h-screen flex flex-col">
         <header className="sticky top-0 z-20 bg-roxo text-papel">

@@ -33,22 +33,22 @@ export default async function Talentos({ searchParams: sp }: { searchParams: SP 
       <div className="bg-magenta text-papel bg-letreiro">
         <div className="wrap relative grid gap-5 py-9">
           <span className="tarja justify-self-start">Banco de Talentos Nacional</span>
-          <h1 className="font-display uppercase text-[clamp(40px,8vw,84px)] leading-[.92] text-balance">Contrata quem<br />é da comunidade.</h1>
+          <h1 className="font-display uppercase text-[clamp(40px,8vw,84px)] leading-[1.08] text-balance">Contrata quem<br />é da comunidade.</h1>
           <Suspense><Filtros categorias={cats || []} cidades={cids || []} /></Suspense>
         </div>
       </div>
       <div className="wrap py-6 grid gap-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <p className="font-display uppercase text-3xl"><span className="text-magenta">{total}</span> profissiona{total === 1 ? 'l' : 'is'}</p>
-          {Object.values(sp).some(Boolean) && <Link href="/talentos" className="font-pixel text-[11px] border-2 border-roxo px-3 py-1.5">Limpar filtros</Link>}
+          {Object.values(sp).some(Boolean) && <Link href="/talentos" className="text-xs font-semibold uppercase tracking-[0.06em] border-2 border-roxo px-3 py-1.5">Limpar filtros</Link>}
         </div>
         {total === 0 ? <p>Nenhuma profissional com esses filtros. Tenta tirar um deles.</p> : (
           <ul className="grid gap-3.5 [grid-template-columns:repeat(auto-fill,minmax(250px,1fr))]">
             {data!.map((p) => (
               <li key={p.slug}>
                 <Link href={`/talentos/${p.slug}`} className={`grid gap-1.5 h-full content-start border-2 border-roxo p-4 bg-white transition hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-blocom ${p.destaque ? 'outline outline-4 outline-amarelo' : ''}`}>
-                  <span className="font-pixel text-[10px] tracking-wider text-magenta">{p.cidade || 'Cidade a confirmar'} · {p.uf || '—'}{p.destaque && ' · DESTAQUE'}</span>
-                  <h2 className="font-display uppercase text-xl leading-tight break-words">{p.nome}</h2>
+                  <span className="text-xs font-semibold uppercase tracking-[0.08em] text-magenta">{p.cidade || 'Cidade a confirmar'} · {p.uf || '—'}{p.destaque && ' · DESTAQUE'}</span>
+                  <h2 className="font-display uppercase text-xl leading-[1.15] break-words">{p.nome}</h2>
                   <p className="text-sm break-words">{p.profissao}</p>
                   <span className="flex flex-wrap gap-1">{(p.categoria_ids as number[]).slice(0, 3).map((id) => <span key={id} className="bg-verde text-[11px] font-semibold px-1.5">{nomeCat.get(id)}</span>)}</span>
                 </Link>
@@ -59,7 +59,7 @@ export default async function Talentos({ searchParams: sp }: { searchParams: SP 
         {total > POR_PAG && (
           <nav className="flex justify-center gap-3 py-4" aria-label="Paginação">
             {pag > 1 && <Link className="btn" href={href(pag - 1)}>Anterior</Link>}
-            <span className="font-pixel text-xs self-center">{pag} / {Math.ceil(total / POR_PAG)}</span>
+            <span className="text-xs font-semibold uppercase self-center">{pag} / {Math.ceil(total / POR_PAG)}</span>
             {pag * POR_PAG < total && <Link className="btn" href={href(pag + 1)}>Próxima</Link>}
           </nav>
         )}

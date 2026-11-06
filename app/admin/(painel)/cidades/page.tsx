@@ -19,7 +19,7 @@ export default async function Cidades({ searchParams }: { searchParams: { uf?: s
           <li key={c.id}><form action={salvarCidade} className="flex flex-wrap items-center gap-2 border-b border-roxo/15 pb-2">
             <input type="hidden" name="id" value={c.id} />
             <input className="campo flex-1 min-w-40" name="nome" defaultValue={c.nome} aria-label="Nome da cidade" />
-            <span className="font-pixel text-[11px] w-6">{c.uf}</span>
+            <span className="text-xs font-semibold uppercase tracking-[0.06em] w-6">{c.uf}</span>
             <span className="text-xs w-16">{conta(c.id)} perfis</span>
             <button className="border-2 border-roxo px-2 py-1 text-sm">Renomear</button>
             <select name="destino" className="border border-roxo/40 text-sm py-1 max-w-[160px]" aria-label="Juntar com"><option value="">juntar com…</option>{data.filter((d) => d.uf === c.uf && d.id !== c.id).map((d) => <option key={d.id} value={d.id}>{d.nome}</option>)}</select>

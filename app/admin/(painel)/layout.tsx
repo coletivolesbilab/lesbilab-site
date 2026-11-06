@@ -17,7 +17,7 @@ export default async function PainelLayout({ children }: { children: React.React
     <div className="wrap py-6 grid gap-5">
       <nav className="flex flex-wrap items-center gap-1 border-b-2 border-roxo pb-3">
         {links.map(([h, t]) => <Link key={h} href={h} className="font-display uppercase px-3 py-1.5 hover:bg-amarelo">{t}</Link>)}
-        <form action={sair} className="ml-auto"><button className="font-pixel text-[11px] border-2 border-roxo px-3 py-1.5">Sair ({user.email})</button></form>
+        <form action={sair} className="ml-auto"><button className="text-xs font-semibold uppercase tracking-[0.06em] border-2 border-roxo px-3 py-1.5">Sair ({user.email})</button></form>
       </nav>
       {children}
     </div>

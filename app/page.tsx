@@ -16,7 +16,7 @@ export default function OColetivo() {
       <div className="wrap grid gap-8 py-10 max-w-5xl">
         <Image src="/logo-h-original.webp" alt="Coletivo LESBILAB" width={700} height={294} priority className="w-64 md:w-80 h-auto" />
         <span className="tarja justify-self-start">O Coletivo LESBILAB</span>
-        <h1 className="font-display uppercase text-[clamp(44px,9vw,96px)] leading-[.9] text-balance">Ocupar espaços, criar conexões e fortalecer umas às outras.</h1>
+        <h1 className="font-display uppercase text-[clamp(44px,9vw,96px)] leading-[1.08] text-balance">Ocupar espaços, criar conexões e fortalecer umas às outras.</h1>
 
         <section className="grid gap-3 max-w-prose text-[17px]">
           <h2 className="font-display uppercase text-4xl">O que é o LESBILAB?</h2>
@@ -28,7 +28,7 @@ export default function OColetivo() {
         <div className="grid gap-3 md:grid-cols-2">
           {EIXOS.map((e) => (
             <section key={e.t} className={`${e.c} border-2 border-roxo p-5 grid gap-2 content-start`}>
-              <h3 className="font-display uppercase text-2xl leading-tight">{e.t}</h3>
+              <h3 className="font-display uppercase text-2xl leading-[1.15]">{e.t}</h3>
               {e.p.map((t) => <p key={t}>{t}</p>)}
               {e.link && <Link href="/talentos" className="btn justify-self-start mt-2 !bg-amarelo !text-roxo !shadow-none">Ver o Banco de Talentos</Link>}
             </section>
@@ -43,7 +43,7 @@ export default function OColetivo() {
           <p>O LESBILAB é sobre criar possibilidades juntas. Sobre transformar encontros em conexões e conexões em oportunidades.</p>
         </section>
 
-        <p className="bg-roxo p-5 font-display uppercase text-[clamp(28px,5vw,46px)] leading-none grid">
+        <p className="bg-roxo p-5 font-display uppercase text-[clamp(28px,5vw,46px)] leading-[1.1] grid">
           <span className="text-magenta">Porque juntas</span><span className="text-amarelo">podemos chegar</span><span className="text-verde">mais longe.</span>
         </p>
 

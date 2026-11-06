@@ -37,7 +37,7 @@ export function Importador({ categorias }: { categorias: string[] }) {
     <div className="grid gap-4">
       <input type="file" accept=".xlsx,.xls,.csv" disabled={ocupado} onChange={(e) => e.target.files?.[0] && ler(e.target.files[0])} className="campo max-w-md bg-white" />
       {msg && <p className="bg-amarelo p-2 text-sm" role="status">{msg}</p>}
-      {ocupado && <p className="font-pixel text-xs">processando…</p>}
+      {ocupado && <p className="text-xs font-semibold uppercase">processando…</p>}
       {linhas.length > 0 && <>
         <p className="text-xs">Colunas reconhecidas: {Object.entries(mapa).map(([k, v]) => `${k} ← “${v}”`).join(' · ')}</p>
         <div className="flex flex-wrap gap-2 text-sm">
@@ -47,7 +47,7 @@ export function Importador({ categorias }: { categorias: string[] }) {
         </div>
         <div className="overflow-x-auto border-2 border-roxo bg-white max-h-[60vh]">
           <table className="w-full min-w-[900px] text-sm">
-            <thead className="bg-roxo text-papel font-pixel text-[10px] text-left sticky top-0"><tr><th className="p-2">INCLUIR</th><th className="p-2">NOME</th><th className="p-2">PLANILHA</th><th className="p-2">CIDADE</th><th className="p-2">UF</th><th className="p-2">CATEGORIAS</th><th className="p-2">AVISOS</th></tr></thead>
+            <thead className="bg-roxo text-papel text-xs font-semibold uppercase tracking-[0.06em] text-left sticky top-0"><tr><th className="p-2">INCLUIR</th><th className="p-2">NOME</th><th className="p-2">PLANILHA</th><th className="p-2">CIDADE</th><th className="p-2">UF</th><th className="p-2">CATEGORIAS</th><th className="p-2">AVISOS</th></tr></thead>
             <tbody>
               {vis.map(([l, i]) => (
                 <tr key={l.linha} className={`border-t border-roxo/15 align-top ${l.incluir ? '' : 'opacity-50'}`}>
