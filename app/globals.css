@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Logo oficial em /public (extraído do manual). Fontes do manual: coloque os .woff2 em /public/fonts e descomente.
+@font-face { font-family: 'Ledlight'; src: url('/fonts/Ledlight.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'Blue Screen'; src: url('/fonts/BlueScreen.woff2') format('woff2'); font-display: swap; }
+*/
+:root {
+  --f-display: 'Anton';
+  --f-pixel: 'Blue Screen', 'Silkscreen';
+  --f-body: 'Readex Pro';
+}
+body { @apply bg-papel text-roxo font-body; }
+.halftone { -webkit-mask: radial-gradient(circle, #000 62%, transparent 64%) 0 0/3px 3px; mask: radial-gradient(circle, #000 62%, transparent 64%) 0 0/3px 3px; }
+.tarja { @apply inline-block bg-amarelo text-roxo font-display uppercase px-3 py-0.5 text-lg tracking-wide -rotate-1; }
+.btn { @apply inline-block font-display uppercase tracking-wide text-lg px-5 py-2.5 bg-magenta text-papel shadow-bloco transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 disabled:opacity-50; }
+.campo { @apply w-full min-w-0 border-2 border-roxo bg-papel px-3 py-2 text-roxo text-[15px]; }
+.rotulo { @apply grid gap-1 font-pixel text-[10px] uppercase tracking-wider; }
+.wrap { @apply mx-auto w-full max-w-6xl px-4; }
+:focus-visible { outline: 3px solid #2CC474; outline-offset: 2px; }
+.bg-letreiro { position: relative; overflow: hidden; }
+.bg-letreiro::before { content: 'LESBILAB LESBILAB LESBILAB LESBILAB LESBILAB LESBILAB LESBILAB LESBILAB LESBILAB LESBILAB LESBILAB LESBILAB'; position: absolute; inset: -20px; font-family: var(--f-display); font-size: 88px; line-height: .95; color: #000; opacity: .07; word-spacing: 20px; pointer-events: none; }
