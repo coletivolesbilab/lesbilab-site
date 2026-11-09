@@ -23,9 +23,9 @@ export default async function Perfil({ params }: { params: { slug: string } }) {
   const temContato = wa || ig || site || redes.length;
   return (
     <div className="wrap max-w-3xl py-8 grid gap-6">
-      <Link href="/talentos" className="text-xs font-semibold uppercase tracking-[0.06em]">‹ voltar ao Banco de Talentos</Link>
+      <Link href="/talentos" className="text-sm font-medium">‹ voltar ao Banco de Talentos</Link>
       <header className="bg-roxo text-papel p-6 grid gap-2">
-        <span className="text-xs font-semibold uppercase tracking-[0.08em] text-verde">{p.cidade || 'Cidade a confirmar'} · {p.estado || '—'}</span>
+        <span className="text-sm font-medium text-verde">{p.cidade || 'Cidade a confirmar'} · {p.estado || '—'}</span>
         <h1 className="font-display uppercase text-[clamp(30px,5vw,46px)] leading-[1.18] text-amarelo break-words">{p.nome}</h1>
         <p className="text-lg">{p.profissao}</p>
         <div className="flex flex-wrap gap-1">
@@ -35,13 +35,13 @@ export default async function Perfil({ params }: { params: { slug: string } }) {
       </header>
       {p.descricao && (
         <section className="grid gap-2">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.08em] text-magenta">SERVIÇOS</h2>
+          <h2 className="font-display uppercase text-xl tracking-wide text-magenta">SERVIÇOS</h2>
           <p className="whitespace-pre-line text-[17px] max-w-prose">{p.descricao}</p>
         </section>
       )}
       {temContato ? (
         <section className="grid gap-3">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.08em] text-magenta">CONTATO</h2>
+          <h2 className="font-display uppercase text-xl tracking-wide text-magenta">CONTATO</h2>
           <div className="flex flex-wrap gap-3">
             {wa && <a className="btn !bg-verde !text-roxo" href={wa} target="_blank" rel="noopener noreferrer">WhatsApp {foneFmt(p.telefone)}</a>}
             {ig && <a className="btn" href={`https://instagram.com/${ig}`} target="_blank" rel="noopener noreferrer">@{ig}</a>}
