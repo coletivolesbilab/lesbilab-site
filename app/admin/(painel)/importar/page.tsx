@@ -6,7 +6,7 @@ export default async function Importar() {
   return (
     <div className="grid gap-4">
       <h1 className="font-display uppercase text-3xl leading-[1.2]">Importar planilha</h1>
-      <p className="max-w-prose text-sm">Envie o .xlsx ou .csv do formulário. O sistema reconhece as colunas, separa cidade e estado, encaixa as categorias e marca duplicadas. Nada é inventado: o que não for reconhecido fica marcado para revisão. A coluna “Insta pessoal” é ignorada.</p>
+      <p className="max-w-prose text-sm">Envie o .xlsx ou .csv do formulário. O sistema reconhece as colunas, separa cidade e estado, encaixa as categorias e marca duplicadas. Nada é inventado: o que não for reconhecido fica marcado para revisão. Quando a resposta não bate com a lista, a categoria é sugerida pela profissão; confira antes de importar. A coluna “Insta pessoal” é ignorada.</p>
       <Importador categorias={(data || []).map((c) => c.nome)} />
     </div>
   );

@@ -39,15 +39,37 @@ export function lerLocal(v: string): { cidade: string; uf: string } {
 // Divide "A (x, y), B" sem quebrar dentro de parênteses.
 const dividir = (v: string) => v.split(/,\s*(?![^()]*\))|;/).map((p) => p.replace(/\(.*?\)/g, '').trim()).filter((p) => p && p !== '-');
 
-export function lerCategorias(v: string, lista: string[]) {
-  const ok: string[] = []; const outros: string[] = [];
+// Palavras-chave da profissão para sugerir categoria quando a resposta não bate com a lista.
+const PALAVRAS: [string, RegExp][] = [
+  ['Administração, Finanças & Negócios', /\b(administra\w*|adm|assistente administrativ\w*|aux\w* administrativ\w*|contab\w*|rh|recursos humanos|compradora|compras|comercio exterior|importacao|exportacao|financ\w*|relacionamento comercial)\b/],
+  ['Arquitetura, Engenharia & Obras', /\b(arquitet\w*|urbanis\w*|engenheira civil|engenharia civil|interiores|obras?)\b/],
+  ['Artes Visuais, Design & Artesanato', /\b(design\w*|grafic\w*|artes[aã]\w*|artesanato|biscuit|croch\w*|ilustra\w*)\b/],
+  ['Ciências & Meio Ambiente', /\b(biolog\w*|quimic\w*|engenheira de alimentos|engenharia de alimentos|pesquisa cientifica|meio ambiente|fauna|flora)\b/],
+  ['Comunicação & Conteúdo', /\b(publicit\w*|marketing|trafego|midia digital|social media|jornalis\w*)\b/],
+  ['Direito & Jurídico', /\b(advoga\w*|advocacia|juridic\w*|direito|compliance|governanca)\b/],
+  ['Educação & Facilitação', /\b(professora?|docente|libras|aulas?)\b/],
+  ['Espiritualidade & Terapias Holísticas', /\b(tarot\w*|tarol\w*|cartoman\w*|magist\w*|esoteric\w*|espiritual\w*)\b/],
+  ['Esporte & Atividade Física', /\b(educacao fisica|personal|esportes?|treinadora)\b/],
+  ['Manutenção, Reparos & Serviços', /\b(marido de aluguel|manutencao|eletric\w*|hidraulic\w*|montagem de moveis|reparos|vistori\w*|entregas?|motogirl|motogril)\b/],
+  ['Pets & Animais', /\b(pet sitter|pets?|adestra\w*|veterinari\w*|canin\w*)\b/],
+  ['Saúde', /\b(medic[ao]|medicina|enfermeir\w*|dentista|odonto\w*|fisioterap\w*|terapeuta ocupacional|obstetriz|agente de saude|saude integr\w*|nutricionista)\b/],
+  ['Saúde mental', /\b(psicolog\w*|psicanalis\w*)\b/],
+  ['Serviço Social', /\b(assistente social|servico social)\b/],
+  ['Política', /\b(parlamentar|militante)\b/],
+];
+
+export function lerCategorias(v: string, lista: string[], profissao = '') {
+  const ok: string[] = []; const fora: string[] = [];
   for (const p of dividir(v || '')) {
     const k = norm(p).replace(/ e /g, ' & ');
     const hit = lista.find((c) => { const kc = norm(c); return kc === k || (k.length > 4 && kc.startsWith(k)); });
-    if (hit) ok.push(hit); else outros.push(p);
+    if (hit) ok.push(hit); else fora.push(p);
   }
-  if (outros.length && !ok.includes('Outros')) ok.push('Outros');
-  return { categorias: [...new Set(ok)], categoria_original: outros.join(', ') };
+  if (fora.length || !ok.length) {
+    const texto = norm(profissao + ' ' + fora.join(' '));
+    for (const [cat, re] of PALAVRAS) if (lista.includes(cat) && re.test(texto)) ok.push(cat);
+  }
+  return { categorias: [...new Set(ok)], categoria_original: fora.join(', ') };
 }
 
 const COLS: Record<string, (h: string) => boolean> = {
@@ -76,7 +98,7 @@ export function normalizar(rows: Record<string, unknown>[], mapa: Record<string,
   const vistos = new Map<string, number>();
   return rows.map((r, i) => {
     const local = g(r, 'local'); const { cidade, uf } = lerLocal(local);
-    const cat = lerCategorias(g(r, 'categoria'), categorias);
+    const cat = lerCategorias(g(r, 'categoria'), categorias, g(r, 'profissao'));
     const l: Linha = {
       linha: i + 2, nome: g(r, 'nome'), profissao: g(r, 'profissao'), descricao: g(r, 'descricao'), cidade, uf,
       local_original: local, ...cat, telefone: digitos(g(r, 'telefone')), instagram: igHandle(g(r, 'instagram')),
@@ -85,7 +107,7 @@ export function normalizar(rows: Record<string, unknown>[], mapa: Record<string,
     if (!l.nome) l.revisar.push('sem nome');
     if (!uf) l.revisar.push('estado não identificado');
     if (!cidade) l.revisar.push('cidade não identificada');
-    if (cat.categoria_original) l.revisar.push('categoria fora da lista');
+    if (!cat.categorias.length) l.revisar.push('sem categoria');
     for (const k of [norm(l.nome) && 'n:' + norm(l.nome), l.telefone && 't:' + l.telefone, l.instagram && 'i:' + l.instagram.toLowerCase()]) {
       if (!k) continue;
       if (vistos.has(k) && !l.duplicada) { l.duplicada = `igual à linha ${vistos.get(k)} da planilha`; l.incluir = false; }
