@@ -43,7 +43,8 @@ const dividir = (v: string) => v.split(/,\s*(?![^()]*\))|;/).map((p) => p.replac
 const PALAVRAS: [string, RegExp][] = [
   ['Administração, Finanças & Negócios', /\b(administra\w*|adm|assistente administrativ\w*|aux\w* administrativ\w*|contab\w*|rh|recursos humanos|compradora|compras|comercio exterior|importacao|exportacao|financ\w*|relacionamento comercial)\b/],
   ['Arquitetura, Engenharia & Obras', /\b(arquitet\w*|urbanis\w*|engenheira civil|engenharia civil|interiores|obras?)\b/],
-  ['Artes Visuais, Design & Artesanato', /\b(design\w*|grafic\w*|artes[aã]\w*|artesanato|biscuit|croch\w*|ilustra\w*)\b/],
+  ['Artes Visuais & Artesanato', /\b(artes[aã]\w*|artesanato|biscuit|croch\w*|ilustra\w*|serigraf\w*)\b/],
+  ['Design', /\b(designer\w*|design grafic\w*|design de (marca|produto|moda)|ux|ui|motion|branding|identidade visual)\b/],
   ['Ciências & Meio Ambiente', /\b(biolog\w*|quimic\w*|engenheira de alimentos|engenharia de alimentos|pesquisa cientifica|meio ambiente|fauna|flora)\b/],
   ['Comunicação & Conteúdo', /\b(publicit\w*|marketing|trafego|midia digital|social media|jornalis\w*)\b/],
   ['Direito & Jurídico', /\b(advoga\w*|advocacia|juridic\w*|direito|compliance|governanca)\b/],
@@ -65,6 +66,8 @@ export function lerCategorias(v: string, lista: string[], profissao = '') {
     const hit = lista.find((c) => { const kc = norm(c); return kc === k || (k.length > 4 && kc.startsWith(k)); });
     if (hit) ok.push(hit); else fora.push(p);
   }
+  const prof = norm(profissao);
+  if (lista.includes('Design') && !/sobrancelh|interiores/.test(prof) && /\b(designer\w*|design grafic\w*|design de (marca|produto|moda)|ux|ui|motion|branding|identidade visual)\b/.test(prof)) ok.push('Design');
   if (fora.length || !ok.length) {
     const texto = norm(profissao + ' ' + fora.join(' '));
     for (const [cat, re] of PALAVRAS) if (lista.includes(cat) && re.test(texto)) ok.push(cat);
