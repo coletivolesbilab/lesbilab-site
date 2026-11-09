@@ -69,6 +69,11 @@ export function lerCategorias(v: string, lista: string[], profissao = '') {
     const texto = norm(profissao + ' ' + fora.join(' '));
     for (const [cat, re] of PALAVRAS) if (lista.includes(cat) && re.test(texto)) ok.push(cat);
   }
+  // Bartender tem categoria própria, separada de Bares.
+  if (lista.includes('Bartender') && /\b(bartenders?|barman|barwoman|barista|mixolog\w*|coquetel\w*|drinks?)\b/.test(norm(profissao))) {
+    ok.push('Bartender');
+    const i = ok.indexOf('Bares'); if (i >= 0) ok.splice(i, 1);
+  }
   return { categorias: [...new Set(ok)], categoria_original: fora.join(', ') };
 }
 

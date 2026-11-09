@@ -28,6 +28,7 @@ insert into categorias (nome, slug, ordem) values
 ('Artes Visuais, Design & Artesanato','artes-visuais-design-artesanato',3),
 ('Audiovisual','audiovisual',4),
 ('Bares','bares',5),
+('Bartender','bartender',5),
 ('Bem-estar & Cuidado','bem-estar-cuidado',6),
 ('Ciências & Meio Ambiente','ciencias-meio-ambiente',7),
 ('Comidinhas & bebidinhas','comidinhas-bebidinhas',8),

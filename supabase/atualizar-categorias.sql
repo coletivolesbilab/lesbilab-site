@@ -13,7 +13,8 @@ insert into categorias (nome, slug, ordem) values
 ('Manutenção, Reparos & Serviços','manutencao-reparos-servicos',0),
 ('Pets & Animais','pets-animais',0),
 ('Saúde','saude',0),
-('Serviço Social','servico-social',0)
+('Serviço Social','servico-social',0),
+('Bartender','bartender',0)
 on conflict (slug) do nothing;
 
 -- 3. Quem estava em "Outros" fica marcado para revisão; depois apaga "Outros"
@@ -50,3 +51,13 @@ update categorias set ordem = 25 where slug = 'saude';
 update categorias set ordem = 26 where slug = 'saude-mental';
 update categorias set ordem = 27 where slug = 'servico-social';
 update categorias set ordem = 28 where slug = 'tecnologia-digital';
+update categorias set ordem = 5 where slug = 'bartender';
+
+-- 5. Bartenders saem de "Bares" e vão para "Bartender"
+insert into profissional_categorias (profissional_id, categoria_id)
+select p.id, (select id from categorias where slug = 'bartender') from profissionais p
+where unaccent(lower(p.profissao)) ~ '(bartender|barman|barwoman|barista|mixolog|coquetel|drinks)'
+on conflict do nothing;
+delete from profissional_categorias
+where categoria_id = (select id from categorias where slug = 'bares')
+  and profissional_id in (select id from profissionais where unaccent(lower(profissao)) ~ '(bartender|barman|barwoman|barista|mixolog|coquetel|drinks)');
