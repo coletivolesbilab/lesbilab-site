@@ -8,8 +8,7 @@
 */
 :root {
   --f-display: 'Anton';
-  --f-pixel: 'Blue Screen', 'Silkscreen';
-  --f-body: 'Readex Pro';
+  --f-body: 'DM Sans';
 }
 body { @apply bg-papel text-roxo font-body leading-relaxed; }
 .halftone { -webkit-mask: radial-gradient(circle, #000 62%, transparent 64%) 0 0/3px 3px; mask: radial-gradient(circle, #000 62%, transparent 64%) 0 0/3px 3px; }
