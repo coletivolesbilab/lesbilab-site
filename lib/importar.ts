@@ -63,7 +63,14 @@ const PALAVRAS: [string, RegExp][] = [
 
 export function lerCategorias(v: string, lista: string[], profissao = '') {
   const ok: string[] = []; const fora: string[] = [];
-  for (const p of dividir(v || '')) {
+  // Primeiro acha nomes completos da lista (alguns têm vírgula, como "Administração, Finanças & Negócios").
+  let resto = ' ' + norm(v || '').replace(/ e /g, ' & ') + ' ';
+  for (const c of [...lista].sort((a, b) => b.length - a.length)) {
+    const kc = ' ' + norm(c) + ' ';
+    const re = new RegExp(`(^|,)\\s*${kc.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*(?=,|$)`);
+    if (re.test(resto.trim())) { ok.push(c); resto = resto.trim().replace(re, '$1 '); }
+  }
+  for (const p of dividir(resto.replace(/^[\s,]+|[\s,]+$/g, ''))) {
     const k = norm(p).replace(/ e /g, ' & ');
     const hit = lista.find((c) => { const kc = norm(c); return kc === k || (k.length > 4 && kc.startsWith(k)); });
     if (hit) ok.push(hit); else fora.push(p);
