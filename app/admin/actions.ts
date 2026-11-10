@@ -107,12 +107,13 @@ export async function importar(linhas: Linha[], publicarProntas: boolean) {
   let ok = 0; const erros: string[] = [];
   for (const l of linhas.filter((x) => x.incluir && x.nome)) {
     try {
-      const pronta = !l.revisar.length;
+      // Falta de cidade/estado não impede publicar; a profissional fica marcada para revisão.
+      const pronta = l.revisar.every((r) => r.includes('estado') || r.includes('cidade'));
       const { data, error } = await s.from('profissionais').insert({
         slug: await slugLivre(s, l.nome), nome: l.nome, profissao: l.profissao, descricao: l.descricao || null,
         uf: UFS[l.uf] ? l.uf : null, cidade_id: await cidadeId(s, l.uf, l.cidade), telefone: l.telefone || null,
         instagram: l.instagram || null, site: l.site || null, sexualidade: l.sexualidade || null,
-        local_original: l.local_original, categoria_original: l.categoria_original || null, revisar: !pronta,
+        local_original: l.local_original, categoria_original: l.categoria_original || null, revisar: l.revisar.length > 0,
         status: publicarProntas && pronta ? 'publicado' : 'rascunho', origem: 'planilha',
       }).select('id').single();
       if (error) throw error;

@@ -64,7 +64,7 @@ export function Importador({ categorias }: { categorias: string[] }) {
           </table>
         </div>
         <div className="flex flex-wrap items-center gap-4 border-2 border-roxo bg-white p-4">
-          <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={publicar} onChange={(e) => setPublicar(e.target.checked)} />Publicar direto as que não precisam de revisão (as outras entram como rascunho)</label>
+          <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={publicar} onChange={(e) => setPublicar(e.target.checked)} />Publicar direto (inclusive sem cidade/estado); as que estão sem categoria entram como rascunho</label>
           <button className="btn" disabled={ocupado || !inc} onClick={enviar}>Importar {inc} perfis</button>
         </div>
       </>}
