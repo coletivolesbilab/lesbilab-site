@@ -1,4 +1,5 @@
--- Atualiza as categorias do site (30 categorias, sem "Outros"). Pode rodar mais de uma vez.
+-- Atualiza as categorias do site (31 categorias, sem "Outros"). Pode rodar mais de uma vez.
+update categorias set nome = 'Bares & Restaurantes', slug = 'bares-restaurantes' where slug = 'bares';
 update categorias set nome = 'Artes Visuais & Artesanato', slug = 'artes-visuais-artesanato' where slug in ('artes-visuais', 'artes-visuais-design-artesanato');
 
 insert into categorias (nome, slug, ordem) values
@@ -6,7 +7,7 @@ insert into categorias (nome, slug, ordem) values
 ('Arquitetura, Engenharia & Obras','arquitetura-engenharia-obras',2),
 ('Artes Visuais & Artesanato','artes-visuais-artesanato',3),
 ('Audiovisual','audiovisual',4),
-('Bares','bares',5),
+('Bares & Restaurantes','bares-restaurantes',5),
 ('Bartender','bartender',6),
 ('Bem-estar & Cuidado','bem-estar-cuidado',7),
 ('Ciências & Meio Ambiente','ciencias-meio-ambiente',8),
@@ -31,7 +32,8 @@ insert into categorias (nome, slug, ordem) values
 ('Saúde','saude',27),
 ('Saúde mental','saude-mental',28),
 ('Serviço Social','servico-social',29),
-('Tecnologia & Digital','tecnologia-digital',30)
+('Tecnologia & Digital','tecnologia-digital',30),
+('Vendas & Atendimento','vendas-atendimento',31)
 on conflict (slug) do update set nome = excluded.nome, ordem = excluded.ordem;
 
 -- Quem estava em "Outros" fica marcado para revisão; "Outros" sai da lista
@@ -45,11 +47,17 @@ select p.id, (select id from categorias where slug = 'bartender') from profissio
 where unaccent(lower(p.profissao)) ~ '(bartender|barman|barwoman|barista|mixolog|coquetel|drinks)'
 on conflict do nothing;
 delete from profissional_categorias
-where categoria_id = (select id from categorias where slug = 'bares')
+where categoria_id = (select id from categorias where slug = 'bares-restaurantes')
   and profissional_id in (select id from profissionais where unaccent(lower(profissao)) ~ '(bartender|barman|barwoman|barista|mixolog|coquetel|drinks)');
 
 -- Designers ganham a categoria "Design" (design de sobrancelha e de interiores ficam de fora)
 insert into profissional_categorias (profissional_id, categoria_id)
 select p.id, (select id from categorias where slug = 'design') from profissionais p
 where unaccent(lower(p.profissao)) ~ '(designer|design grafic|design de (marca|produto|moda)|\mux\M|\mui\M|motion|branding|identidade visual)' and unaccent(lower(p.profissao)) !~ '(sobrancelh|interiores)'
+on conflict do nothing;
+
+-- Vendas, comercial, telemarketing e recepção ganham "Vendas & Atendimento"
+insert into profissional_categorias (profissional_id, categoria_id)
+select p.id, (select id from categorias where slug = 'vendas-atendimento') from profissionais p
+where unaccent(lower(p.profissao)) ~ '(\mvend|relacionamento comercial|representante comercial|telemarketing|recepcion|atendimento ao cliente)'
 on conflict do nothing;

@@ -56,6 +56,8 @@ const PALAVRAS: [string, RegExp][] = [
   ['Saúde', /\b(medic[ao]|medicina|enfermeir\w*|dentista|odonto\w*|fisioterap\w*|terapeuta ocupacional|obstetriz|agente de saude|saude integr\w*|nutricionista)\b/],
   ['Saúde mental', /\b(psicolog\w*|psicanalis\w*)\b/],
   ['Serviço Social', /\b(assistente social|servico social)\b/],
+  ['Vendas & Atendimento', /\b(vend\w*|relacionamento comercial|representante comercial|telemarketing|recepcion\w*|atendimento ao cliente)\b/],
+  ['Bares & Restaurantes', /\b(garcon\w*|garçon\w*|atendente de (bar|restaurante|salao)|restaurante)\b/],
   ['Política', /\b(parlamentar|militante)\b/],
 ];
 
@@ -75,7 +77,7 @@ export function lerCategorias(v: string, lista: string[], profissao = '') {
   // Bartender tem categoria própria, separada de Bares.
   if (lista.includes('Bartender') && /\b(bartenders?|barman|barwoman|barista|mixolog\w*|coquetel\w*|drinks?)\b/.test(norm(profissao))) {
     ok.push('Bartender');
-    const i = ok.indexOf('Bares'); if (i >= 0) ok.splice(i, 1);
+    const i = ok.indexOf('Bares & Restaurantes'); if (i >= 0) ok.splice(i, 1);
   }
   return { categorias: [...new Set(ok)], categoria_original: fora.join(', ') };
 }

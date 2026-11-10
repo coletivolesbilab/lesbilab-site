@@ -27,7 +27,7 @@ insert into categorias (nome, slug, ordem) values
 ('Arquitetura, Engenharia & Obras','arquitetura-engenharia-obras',2),
 ('Artes Visuais & Artesanato','artes-visuais-artesanato',3),
 ('Audiovisual','audiovisual',4),
-('Bares','bares',5),
+('Bares & Restaurantes','bares-restaurantes',5),
 ('Bartender','bartender',6),
 ('Bem-estar & Cuidado','bem-estar-cuidado',7),
 ('Ciências & Meio Ambiente','ciencias-meio-ambiente',8),
@@ -52,7 +52,8 @@ insert into categorias (nome, slug, ordem) values
 ('Saúde','saude',27),
 ('Saúde mental','saude-mental',28),
 ('Serviço Social','servico-social',29),
-('Tecnologia & Digital','tecnologia-digital',30);
+('Tecnologia & Digital','tecnologia-digital',30),
+('Vendas & Atendimento','vendas-atendimento',31);
 
 create type status_perfil as enum ('rascunho','publicado','suspenso');
 
