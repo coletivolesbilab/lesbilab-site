@@ -1,7 +1,7 @@
 'use client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { UFS } from '@/lib/util';
+import { UFS, slugify } from '@/lib/util';
 
 type Cat = { slug: string; nome: string };
 type Cid = { uf: string; cidade: string; cidade_slug: string };
@@ -17,7 +17,19 @@ export function Filtros({ categorias, cidades }: { categorias: Cat[]; cidades: C
     r.push(`/talentos${p.size ? '?' + p : ''}`, { scroll: false });
   };
   useEffect(() => { const t = setTimeout(() => { if (q !== (sp.get('q') || '')) ir({ q }); }, 350); return () => clearTimeout(t); }); // eslint-disable-line
-  const cidsUf = [...new Map(cidades.filter((c) => !uf || c.uf === uf).map((c) => [c.cidade_slug + c.uf, c])).values()].sort((a, b) => a.cidade.localeCompare(b.cidade));
+  // Com um estado escolhido, lista todos os municípios dele (IBGE) + as cidades já cadastradas.
+  const [ibge, setIbge] = useState<Cid[]>([]);
+  useEffect(() => {
+    setIbge([]);
+    if (!uf) return;
+    let vivo = true;
+    fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`)
+      .then((r) => r.json())
+      .then((l: { nome: string }[]) => { if (vivo) setIbge(l.map((m) => ({ uf, cidade: m.nome, cidade_slug: slugify(m.nome) }))); })
+      .catch(() => {});
+    return () => { vivo = false; };
+  }, [uf]);
+  const cidsUf = [...new Map([...ibge, ...cidades.filter((c) => !uf || c.uf === uf)].map((c) => [c.cidade_slug + c.uf, c])).values()].sort((a, b) => a.cidade.localeCompare(b.cidade));
   return (
     <div className="grid gap-3">
       <div role="search" className="grid gap-2 grid-cols-2 md:grid-cols-[2fr_1.2fr_1.2fr_1.5fr]">
