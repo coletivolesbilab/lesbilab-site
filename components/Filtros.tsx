@@ -17,15 +17,15 @@ export function Filtros({ categorias, cidades }: { categorias: Cat[]; cidades: C
     r.push(`/talentos${p.size ? '?' + p : ''}`, { scroll: false });
   };
   useEffect(() => { const t = setTimeout(() => { if (q !== (sp.get('q') || '')) ir({ q }); }, 350); return () => clearTimeout(t); }); // eslint-disable-line
-  // Com um estado escolhido, lista todos os municípios dele (IBGE) + as cidades já cadastradas.
+  // Com um estado escolhido, lista todos os municípios dele (lista do IBGE em /public/municipios.json) + as cidades já cadastradas.
   const [ibge, setIbge] = useState<Cid[]>([]);
   useEffect(() => {
     setIbge([]);
     if (!uf) return;
     let vivo = true;
-    fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`)
+    fetch('/municipios.json')
       .then((r) => r.json())
-      .then((l: { nome: string }[]) => { if (vivo) setIbge(l.map((m) => ({ uf, cidade: m.nome, cidade_slug: slugify(m.nome) }))); })
+      .then((t: Record<string, string[]>) => { if (vivo) setIbge((t[uf] || []).map((nome) => ({ uf, cidade: nome, cidade_slug: slugify(nome) }))); })
       .catch(() => {});
     return () => { vivo = false; };
   }, [uf]);

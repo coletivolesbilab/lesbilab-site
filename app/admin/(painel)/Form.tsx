@@ -10,20 +10,20 @@ function Salvar() { const { pending } = useFormStatus(); return <button classNam
 
 export function Form({ p, categorias, cidades }: { p: Perfil; categorias: { id: number; nome: string }[]; cidades: { nome: string; uf: string }[] }) {
   const [erro, acao] = useFormState(salvarPerfil, null);
-  // Lista todos os municípios do estado escolhido (IBGE), além das cidades já cadastradas.
+  // Lista todos os municípios do estado escolhido (lista do IBGE em /public/municipios.json), além das cidades já cadastradas.
   const [uf, setUf] = useState(p.uf || '');
   const [municipios, setMunicipios] = useState<string[]>([]);
   useEffect(() => {
     setMunicipios([]);
     if (!uf) return;
     let vivo = true;
-    fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`)
+    fetch('/municipios.json')
       .then((r) => r.json())
-      .then((l: { nome: string }[]) => { if (vivo) setMunicipios(l.map((m) => m.nome)); })
+      .then((t: Record<string, string[]>) => { if (vivo) setMunicipios(t[uf] || []); })
       .catch(() => {});
     return () => { vivo = false; };
   }, [uf]);
-  const opcoes = [...new Set([...municipios, ...cidades.filter((c) => !uf || c.uf === uf).map((c) => c.nome)])].sort((a, b) => a.localeCompare(b));
+  const opcoes = municipios.length ? [...new Set([...municipios, ...cidades.filter((c) => c.uf === uf).map((c) => c.nome), ...(p.cidade && uf === p.uf ? [p.cidade] : [])])].sort((a, b) => a.localeCompare(b)) : [];
   const ck = (n: string, l: string, v?: boolean) => <label className="flex items-center gap-2 text-sm"><input type="checkbox" name={n} defaultChecked={v} />{l}</label>;
   return (
     <form action={acao} className="grid gap-5 max-w-3xl">
@@ -33,8 +33,16 @@ export function Form({ p, categorias, cidades }: { p: Perfil; categorias: { id: 
         <label className="rotulo">Nome profissional *<input className="campo" name="nome" defaultValue={p.nome} required /></label>
         <label className="rotulo">Profissão / função<input className="campo" name="profissao" defaultValue={p.profissao} /></label>
         <label className="rotulo">Estado<select className="campo" name="uf" value={uf} onChange={(e) => setUf(e.target.value)}><option value="">—</option>{Object.entries(UFS).map(([k, v]) => <option key={k} value={k}>{v}</option>)}</select></label>
-        <label className="rotulo">Cidade<input className="campo" name="cidade" list="cidades" defaultValue={p.cidade} autoComplete="off" placeholder={uf ? 'Comece a digitar a cidade' : 'Escolha o estado primeiro'} /></label>
-        <datalist id="cidades">{opcoes.map((c) => <option key={c} value={c} />)}</datalist>
+        <label className="rotulo">Cidade
+          {opcoes.length ? (
+            <select className="campo" name="cidade" defaultValue={p.cidade || ''} key={uf}>
+              <option value="">Escolha a cidade</option>
+              {opcoes.map((c) => <option key={c} value={c}>{c}</option>)}
+            </select>
+          ) : (
+            <input className="campo" name="cidade" defaultValue={p.cidade} autoComplete="off" placeholder={uf ? 'Carregando cidades…' : 'Escolha o estado primeiro'} />
+          )}
+        </label>
       </div>
       <label className="rotulo">Descrição dos serviços<textarea className="campo min-h-28" name="descricao" defaultValue={p.descricao || ''} /></label>
       <fieldset className="grid gap-2"><legend className="rotulo mb-1">Categorias</legend>
