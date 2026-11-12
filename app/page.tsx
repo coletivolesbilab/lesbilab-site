@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-const FORMS = 'https://forms.gle/RzEEfmyHC1qTCxDCA';
+const FORMS = 'https://forms.gle/KBYF6QJyaCpgzQuUA';
 
 const EIXOS = [
   { t: 'Workshops e formação', c: 'bg-papel', p: ['Criamos espaços de aprendizado, troca e desenvolvimento. Por meio de workshops e atividades formativas, queremos compartilhar conhecimentos, incentivar novas habilidades e aproximar profissionais e pessoas interessadas em aprender.', 'Acreditamos que conhecimento também é uma ferramenta de autonomia e transformação.'] },
