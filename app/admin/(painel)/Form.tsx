@@ -52,7 +52,7 @@ export function Form({ p, categorias, cidades }: { p: Perfil; categorias: { id: 
       <div className="grid gap-3 md:grid-cols-2">
         <label className="rotulo">WhatsApp / telefone<input className="campo" name="telefone" defaultValue={p.telefone || ''} inputMode="tel" /></label>
         <label className="rotulo">Instagram profissional<input className="campo" name="instagram" defaultValue={p.instagram || ''} placeholder="@perfil" /></label>
-        <label className="rotulo">Portfólio / site<input className="campo" name="site" defaultValue={p.site || ''} /></label>
+        <label className="rotulo">LinkedIn ou site<input className="campo" name="site" defaultValue={p.site || ''} placeholder="linkedin.com/in/... ou site.com.br" /></label>
         <label className="rotulo">Sexualidade (como a profissional informou)<input className="campo" name="sexualidade" defaultValue={p.sexualidade || ''} /></label>
       </div>
       <label className="rotulo">Outras redes (um link por linha)<textarea className="campo min-h-20" name="outras_redes" defaultValue={p.outras_redes || ''} /></label>

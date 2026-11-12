@@ -98,7 +98,7 @@ const COLS: Record<string, (h: string) => boolean> = {
   telefone: (h) => h.includes('telefone') || h.includes('whats') || h.includes('celular'),
   sexualidade: (h) => h.includes('sexualidade') || h.includes('orientacao'),
   descricao: (h) => h.includes('descri') || h.includes('servico'),
-  site: (h) => h.includes('site') || h.includes('portf'),
+  site: (h) => h.includes('linkedin') || h.includes('site') || h.includes('portf'),
 };
 
 export function mapearColunas(cabecalho: string[]) {

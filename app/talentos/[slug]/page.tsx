@@ -45,7 +45,7 @@ export default async function Perfil({ params }: { params: { slug: string } }) {
           <div className="flex flex-wrap gap-3">
             {wa && <a className="btn !bg-verde !text-roxo" href={wa} target="_blank" rel="noopener noreferrer">WhatsApp {foneFmt(p.telefone)}</a>}
             {ig && <a className="btn" href={`https://instagram.com/${ig}`} target="_blank" rel="noopener noreferrer">@{ig}</a>}
-            {site && <a className="btn !bg-amarelo !text-roxo" href={site} target="_blank" rel="noopener noreferrer">Portfólio / site</a>}
+            {site && <a className="btn !bg-amarelo !text-roxo" href={site} target="_blank" rel="noopener noreferrer">{/linkedin\.com/i.test(site) ? 'LinkedIn' : 'Site'}</a>}
             {redes.map((u) => <a key={u} className="btn !bg-papel !text-roxo border-2 border-roxo" href={u} target="_blank" rel="noopener noreferrer">{new URL(u).hostname.replace('www.', '')}</a>)}
           </div>
         </section>
