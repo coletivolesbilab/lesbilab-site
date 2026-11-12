@@ -3,6 +3,12 @@ import Image from 'next/image';
 
 const FORMS = 'https://forms.gle/KBYF6QJyaCpgzQuUA';
 
+// Próximos eventos: edite aqui (data, nome).
+const EVENTOS = [
+  { data: '27/11', nome: 'Cinema LESBILAB' },
+  { data: '11/12', nome: 'Roda de Samba' },
+];
+
 const EIXOS = [
   { t: 'Workshops e formação', c: 'bg-papel', p: ['Criamos espaços de aprendizado, troca e desenvolvimento. Por meio de workshops e atividades formativas, queremos compartilhar conhecimentos, incentivar novas habilidades e aproximar profissionais e pessoas interessadas em aprender.', 'Acreditamos que conhecimento também é uma ferramenta de autonomia e transformação.'] },
   { t: 'Debates e conversas', c: 'bg-amarelo', p: ['Promovemos encontros para discutir assuntos que atravessam nossas vivências, compartilhar experiências e ampliar perspectivas.', 'São espaços de escuta, reflexão e construção coletiva, onde diferentes histórias e opiniões podem se encontrar.'] },
@@ -17,6 +23,18 @@ export default function OColetivo() {
         <Image src="/logo-h-original.webp" alt="Coletivo LESBILAB" width={700} height={294} priority className="w-64 md:w-80 h-auto" />
         <span className="tarja justify-self-start">O Coletivo LESBILAB</span>
         <h1 className="font-display uppercase text-[clamp(34px,6vw,66px)] leading-[1.18] text-balance">Ocupar espaços, criar conexões e fortalecer umas às outras.</h1>
+
+        <section className="bg-roxo text-papel p-6 grid gap-4">
+          <h2 className="font-display uppercase text-3xl md:text-4xl leading-[1.2]">Próximos eventos do coletivo</h2>
+          <ul className="grid gap-3">
+            {EVENTOS.map((e) => (
+              <li key={e.data + e.nome} className="flex flex-wrap items-baseline gap-x-5 gap-y-1">
+                <span className="font-display text-4xl md:text-5xl text-amarelo leading-[1.1]">{e.data}</span>
+                <span className="font-display uppercase text-2xl md:text-3xl leading-[1.2]">{e.nome}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
 
         <section className="grid gap-3 max-w-prose text-[17px]">
           <h2 className="font-display uppercase text-3xl md:text-4xl leading-[1.2]">O que é o LESBILAB?</h2>
