@@ -86,15 +86,17 @@ export async function acaoPerfis(f: FormData) {
 
 export async function previaImport(linhas: Linha[]) {
   const s = await exigeAdmin();
-  const { data } = await s.from('profissionais').select('id,nome,telefone,instagram');
+  const { data } = await s.from('profissionais').select('id,nome,telefone,instagram,profissao');
   const idx = new Map<string, string>();
   for (const p of data || []) {
-    if (p.nome) idx.set('n:' + norm(p.nome), p.nome);
-    if (p.telefone) idx.set('t:' + p.telefone, p.nome);
-    if (p.instagram) idx.set('i:' + p.instagram.toLowerCase(), p.nome);
+    const pf = '|' + norm(p.profissao || '');
+    if (p.nome) idx.set('n:' + norm(p.nome) + pf, p.nome);
+    if (p.telefone) idx.set('t:' + p.telefone + pf, p.nome);
+    if (p.instagram) idx.set('i:' + p.instagram.toLowerCase() + pf, p.nome);
   }
   return linhas.map((l) => {
-    const hit = [l.nome && 'n:' + norm(l.nome), l.telefone && 't:' + l.telefone, l.instagram && 'i:' + l.instagram.toLowerCase()]
+    const pf = '|' + norm(l.profissao);
+    const hit = [l.nome && 'n:' + norm(l.nome) + pf, l.telefone && 't:' + l.telefone + pf, l.instagram && 'i:' + l.instagram.toLowerCase() + pf]
       .map((k) => k && idx.get(k)).find(Boolean);
     return hit && !l.duplicada ? { ...l, duplicada: `já cadastrada: ${hit}`, incluir: false } : l;
   });

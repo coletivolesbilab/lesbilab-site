@@ -92,7 +92,7 @@ export function lerCategorias(v: string, lista: string[], profissao = '') {
 const COLS: Record<string, (h: string) => boolean> = {
   nome: (h) => h.includes('nome'),
   local: (h) => h.includes('cidade') || h.includes('estado'),
-  profissao: (h) => !h.includes('insta') && (h.includes('profiss') || h.includes('o que tu faz') || h.includes('o que voce faz')),
+  profissao: (h) => !h.includes('insta') && !h.includes('telefone') && (h.includes('profiss') || h.includes('o que tu faz') || h.includes('o que voce faz')),
   categoria: (h) => h === 'tipo' || h.includes('categoria') || h.includes('area') || h.includes('trabalha'),
   instagram: (h) => h.includes('insta') && !h.includes('pessoal'),
   telefone: (h) => h.includes('telefone') || h.includes('whats') || h.includes('celular'),
@@ -129,7 +129,9 @@ export function normalizar(rows: Record<string, unknown>[], mapa: Record<string,
     if (!uf) l.revisar.push('estado não identificado');
     if (!cidade) l.revisar.push('cidade não identificada');
     if (!cat.categorias.length) l.revisar.push('sem categoria');
-    for (const k of [norm(l.nome) && 'n:' + norm(l.nome), l.telefone && 't:' + l.telefone, l.instagram && 'i:' + l.instagram.toLowerCase()]) {
+    // Repetida = mesma pessoa (nome, telefone ou Instagram) E mesma profissão. Profissões diferentes viram perfis separados.
+    const pf = '|' + norm(l.profissao);
+    for (const k of [norm(l.nome) && 'n:' + norm(l.nome) + pf, l.telefone && 't:' + l.telefone + pf, l.instagram && 'i:' + l.instagram.toLowerCase() + pf]) {
       if (!k) continue;
       if (vistos.has(k) && !l.duplicada) { l.duplicada = `igual à linha ${vistos.get(k)} da planilha`; l.incluir = false; }
       else vistos.set(k, l.linha);
