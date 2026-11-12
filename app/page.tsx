@@ -26,13 +26,13 @@ export default function OColetivo() {
         <h1 className="font-display uppercase text-[clamp(34px,6vw,66px)] leading-[1.18] text-balance">Ocupar espaços, criar conexões e fortalecer umas às outras.</h1>
 
         <section className="bg-roxo text-papel p-6 grid gap-4">
-          <h2 className="font-display uppercase text-3xl md:text-4xl leading-[1.2]">Próximos eventos do coletivo</h2>
+          <h2 className="font-display uppercase text-2xl md:text-3xl leading-[1.2]">Próximos eventos do coletivo</h2>
           <ul className="grid gap-3">
             {EVENTOS.map((e) => (
               <li key={e.data + e.nome} className="flex flex-wrap items-baseline gap-x-5 gap-y-1">
-                <span className="font-display text-4xl md:text-5xl text-amarelo leading-[1.1]">{e.data}</span>
+                <span className="font-display text-2xl md:text-3xl text-amarelo leading-[1.2]">{e.data}</span>
                 <span className="grid gap-1">
-                  <span className="font-display uppercase text-2xl md:text-3xl leading-[1.2]">{e.nome}</span>
+                  <span className="font-display uppercase text-xl md:text-2xl leading-[1.25]">{e.nome}</span>
                   <span className="text-sm md:text-base opacity-90">
                     {e.info}{e.dm && <> <a href={INSTA} target="_blank" rel="noopener noreferrer" className="underline text-verde">Abrir o Instagram</a></>}
                   </span>
