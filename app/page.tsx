@@ -6,7 +6,7 @@ const FORMS = 'https://forms.gle/KBYF6QJyaCpgzQuUA';
 // Próximos eventos: edite aqui (data, nome).
 const INSTA = 'https://www.instagram.com/lesbilab/';
 const EVENTOS = [
-  { data: '27/11', nome: 'Cinema LESBILAB', info: 'Ingressos pelo direct: chama a gente na DM do @lesbilab.', dm: true },
+  { data: '27/11', nome: 'Cinema LESBILAB · sessão sáfica', info: 'Sexta, a partir das 21h · Cidade 9 (Av. Venâncio Aires, 240, Cidade Baixa, Porto Alegre) · DJ set + filme + DJ set com Sofia, Luna Lorenzon e Ju Klein · Filme em breve · Ingresso R$ 15 · 18+ · Para comprar, chama a gente na DM do @lesbilab.', dm: true },
   { data: '11/12', nome: 'Roda de Samba', info: 'Informações em breve.', dm: false },
 ];
 
