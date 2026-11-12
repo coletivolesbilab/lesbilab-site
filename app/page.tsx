@@ -4,9 +4,10 @@ import Image from 'next/image';
 const FORMS = 'https://forms.gle/KBYF6QJyaCpgzQuUA';
 
 // Próximos eventos: edite aqui (data, nome).
+const INSTA = 'https://www.instagram.com/lesbilab/';
 const EVENTOS = [
-  { data: '27/11', nome: 'Cinema LESBILAB' },
-  { data: '11/12', nome: 'Roda de Samba' },
+  { data: '27/11', nome: 'Cinema LESBILAB', info: 'Ingressos pelo direct: chama a gente na DM do @lesbilab.', dm: true },
+  { data: '11/12', nome: 'Roda de Samba', info: 'Informações em breve.', dm: false },
 ];
 
 const EIXOS = [
@@ -30,10 +31,16 @@ export default function OColetivo() {
             {EVENTOS.map((e) => (
               <li key={e.data + e.nome} className="flex flex-wrap items-baseline gap-x-5 gap-y-1">
                 <span className="font-display text-4xl md:text-5xl text-amarelo leading-[1.1]">{e.data}</span>
-                <span className="font-display uppercase text-2xl md:text-3xl leading-[1.2]">{e.nome}</span>
+                <span className="grid gap-1">
+                  <span className="font-display uppercase text-2xl md:text-3xl leading-[1.2]">{e.nome}</span>
+                  <span className="text-sm md:text-base opacity-90">
+                    {e.info}{e.dm && <> <a href={INSTA} target="_blank" rel="noopener noreferrer" className="underline text-verde">Abrir o Instagram</a></>}
+                  </span>
+                </span>
               </li>
             ))}
           </ul>
+          <a href={INSTA} target="_blank" rel="noopener noreferrer" className="justify-self-start text-sm font-medium border-2 border-papel px-3 py-1.5 hover:bg-papel hover:text-roxo">Siga @lesbilab no Instagram</a>
         </section>
 
         <section className="grid gap-3 max-w-prose text-[17px]">

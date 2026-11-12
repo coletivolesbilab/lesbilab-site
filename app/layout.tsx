@@ -30,7 +30,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="bg-roxo text-papel text-sm">
           <div className="wrap flex flex-wrap justify-between gap-3 py-5">
             <span>LESBILAB · Um rolê sáfico, feito pela comunidade e para a comunidade.</span>
-            <Link href="/privacidade" className="underline">Privacidade e remoção de dados</Link>
+            <span className="flex flex-wrap gap-4">
+              <a href="https://www.instagram.com/lesbilab/" target="_blank" rel="noopener noreferrer" className="underline">Instagram @lesbilab</a>
+              <Link href="/privacidade" className="underline">Privacidade e remoção de dados</Link>
+            </span>
           </div>
         </footer>
       </body>
