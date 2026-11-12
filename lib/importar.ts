@@ -114,7 +114,11 @@ export function normalizar(rows: Record<string, unknown>[], mapa: Record<string,
   const g = (r: Record<string, unknown>, k: string) => (mapa[k] && r[mapa[k]] != null ? String(r[mapa[k]]).trim() : '');
   const vistos = new Map<string, number>();
   return rows.map((r, i) => {
-    const local = g(r, 'local'); const { cidade, uf } = lerLocal(local);
+    // Formulário novo: pergunta "Estado" + uma pergunta "Cidade (UF)" por estado.
+    const colEstado = Object.keys(r).find((h) => norm(h) === 'estado');
+    const colCidade = Object.keys(r).find((h) => /^cidade \(/.test(norm(h)) && String(r[h] ?? '').trim());
+    const local = colEstado ? `${colCidade ? String(r[colCidade]).trim() : ''} - ${String(r[colEstado] ?? '').trim()}` : g(r, 'local');
+    const { cidade, uf } = lerLocal(local);
     const cat = lerCategorias(g(r, 'categoria'), categorias, g(r, 'profissao'));
     const l: Linha = {
       linha: i + 2, nome: g(r, 'nome'), profissao: g(r, 'profissao'), descricao: g(r, 'descricao'), cidade, uf,
