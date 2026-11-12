@@ -93,7 +93,7 @@ const COLS: Record<string, (h: string) => boolean> = {
   nome: (h) => h.includes('nome'),
   local: (h) => h.includes('cidade') || h.includes('estado'),
   profissao: (h) => !h.includes('insta') && (h.includes('profiss') || h.includes('o que tu faz') || h.includes('o que voce faz')),
-  categoria: (h) => h === 'tipo' || h.includes('categoria') || h.includes('area'),
+  categoria: (h) => h === 'tipo' || h.includes('categoria') || h.includes('area') || h.includes('trabalha'),
   instagram: (h) => h.includes('insta') && !h.includes('pessoal'),
   telefone: (h) => h.includes('telefone') || h.includes('whats') || h.includes('celular'),
   sexualidade: (h) => h.includes('sexualidade') || h.includes('orientacao'),
