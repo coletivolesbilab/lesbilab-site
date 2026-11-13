@@ -115,8 +115,12 @@ export function normalizar(rows: Record<string, unknown>[], mapa: Record<string,
   const vistos = new Map<string, number>();
   return rows.map((r, i) => {
     // Formulário novo: pergunta "Estado" + uma pergunta "Cidade (UF)" por estado.
-    const colEstado = Object.keys(r).find((h) => norm(h) === 'estado');
-    const colCidade = Object.keys(r).find((h) => /^cidade( \(|$)/.test(norm(h)) && String(r[h] ?? '').trim());
+    // Colunas separadas de estado e cidade. A cidade pode vir em várias colunas (uma por estado no Forms,
+    // ex.: "Cidade", "Cidade_1", "Cidade (SC)", "Cidade · Santa Catarina"); vale a primeira preenchida.
+    const cols = Object.keys(r);
+    const colEstado = cols.find((h) => norm(h).includes('estado') && !norm(h).includes('cidade'));
+    const colCidade = cols.find((h) => norm(h).includes('cidade') && !norm(h).includes('estado') && String(r[h] ?? '').trim())
+      ?? cols.find((h) => norm(h).includes('cidade') && norm(h).includes('·') && String(r[h] ?? '').trim());
     const local = colEstado ? `${colCidade ? String(r[colCidade]).trim() : ''} - ${String(r[colEstado] ?? '').trim()}` : g(r, 'local');
     const { cidade, uf } = lerLocal(local);
     const cat = lerCategorias(g(r, 'categoria'), categorias, g(r, 'profissao'));
